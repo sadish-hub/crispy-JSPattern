@@ -14,7 +14,11 @@ const pubsub =  {
             subscribers[event] = [];
         }
 
-        subscribers[event].push(callback);
+        let index = subscribers[event].push(callback) - 1
+
+        return {
+            unsubscribe: () => subscribers[event].splice(index, 1)
+        };
     }
 }
 let subscribers = {};
